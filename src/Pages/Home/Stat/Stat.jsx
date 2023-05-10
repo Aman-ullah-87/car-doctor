@@ -4,7 +4,7 @@ import g3 from "../../../assets/g3.png";
 
 const Stat = () => {
   return (
-    <div className="stats h-[250px] shadow flex justify-between bg-black text-white text-center">
+    <div className="   stats h-[250px] shadow flex justify-between bg-black text-white text-center">
       <div className="stat text-white flex justify-center items-center">
         <div className="stat-figure text-primary">
           <img src={g1} alt="" />
