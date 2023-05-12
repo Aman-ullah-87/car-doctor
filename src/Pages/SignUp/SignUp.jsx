@@ -1,49 +1,38 @@
 import { useContext } from "react";
 import { AuthContext } from "../../Components/AuthProvider/AuthProvider";
 import { Link } from "react-router-dom";
-import Swal from "sweetalert2";
 
-const Login = () => {
-  const { logIn, users } = useContext(AuthContext);
-  const handleLogin = (e) => {
-    e.preventDefault();
-    const form = e.target;
-    const email = form.email.value;
-    const password = form.password.value;
-    console.log(email, password);
-    logIn(email, password)
-      .then((result) => {
-        console.log(result)
-        Swal.fire({
-          position: 'top-end',
-          icon: 'success',
-          title: 'Login Successfully',
-          showConfirmButton: false,
-          timer: 2000
+
+const SignUp = () => {
+    const {createUser}=useContext(AuthContext)
+    const handleSignUp = (e) => {
+        e.preventDefault();
+        const form = e.target;
+        const email=form.email.value;
+        const password = form.password.value;
+        console.log(email, password);
+        createUser(email,password)
+        .then((result)=>{
+         console.log(result.user)
         })
-        form.reset()
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
-
-  return (
-    <div>
-      <div className="py-20">
+        .then(err=>console.log(err))
+      };
+    return (
+        <div className="py-20">
         <div className="flex bg-white rounded-lg shadow-lg overflow-hidden mx-auto max-w-sm lg:max-w-4xl">
           <div
             className="hidden lg:block lg:w-1/2 bg-cover"
             style={{
-              backgroundImage: "url('https://i.ibb.co/wWmhcx4/Frame.png')",
+              backgroundImage:
+                "url('https://i.ibb.co/wWmhcx4/Frame.png')",
             }}
           ></div>
           <div className="w-full p-8 lg:w-1/2">
             <h2 className="text-2xl font-semibold text-gray-700 text-center">
-              Login {users?.email}
+              SignUp 
             </h2>
 
-            <form onSubmit={handleLogin}>
+            <form onSubmit={handleSignUp}>
               <div className="mt-4">
                 <label className="block text-gray-700 text-sm font-bold mb-2">
                   Email Address
@@ -68,7 +57,7 @@ const Login = () => {
               </div>
               <div className="mt-8">
                 <button className="btn btn-outline text-white bg-primary hover:bg-white hover:text-primary hover:border-primary w-full">
-                  Login
+                  Signup
                 </button>
               </div>
             </form>
@@ -103,14 +92,13 @@ const Login = () => {
             <div className="mt-4 flex items-center justify-center">
               
               <span className="">
-                Don't have an account <Link to="/signup" className="text-primary">SignUp</Link>{" "}
+                Already have an account <Link to="/login" className="text-primary">Login</Link>{" "}
               </span>
             </div>
           </div>
         </div>
       </div>
-    </div>
-  );
+    );
 };
 
-export default Login;
+export default SignUp;
