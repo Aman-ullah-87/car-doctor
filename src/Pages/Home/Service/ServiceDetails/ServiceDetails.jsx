@@ -89,7 +89,7 @@ const ServiceDetails = () => {
             </div>
           </div>
           <h1 className="font-inter font-extrabold text-3xl ">Price: ${price}</h1>
-          <Link to={`/checkout/:${_id}`}><button className="btn w-full my-4 bg-primary hover:text-primary hover:bg-white border-primary hover:border-primary">
+          <Link to={`/checkout/${_id}`}><button className="btn w-full my-4 bg-primary hover:text-primary hover:bg-white border-primary hover:border-primary">
           Proceed Checkout
               </button></Link>
         </div>

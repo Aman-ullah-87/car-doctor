@@ -1,10 +1,13 @@
 import { useContext } from "react";
 import { AuthContext } from "../../Components/AuthProvider/AuthProvider";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 
 const Login = () => {
   const { logIn, users } = useContext(AuthContext);
+  const location=useLocation();
+  const navigate=useNavigate();
+  let from = location.state?.from?.pathname || "/";
   const handleLogin = (e) => {
     e.preventDefault();
     const form = e.target;
@@ -21,6 +24,7 @@ const Login = () => {
           showConfirmButton: false,
           timer: 2000
         })
+        navigate(from, { replace: true });
         form.reset()
       })
       .catch((error) => {
