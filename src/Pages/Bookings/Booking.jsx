@@ -3,19 +3,34 @@ import { AuthContext } from "../../Components/AuthProvider/AuthProvider";
 import {FaRegTimesCircle} from 'react-icons/fa'
 import PageHeader from "../../Components/PageHeader/PageHeader";
 import Swal from "sweetalert2";
+import {  useNavigate } from "react-router-dom";
 
 const Booking = () => {
   const { users } = useContext(AuthContext);
   const [bookings, setBookings] = useState([]);
 //    const [cardBook,setCarBook]=useState([bookings])
-
+ const navigate=useNavigate();
   const url = `http://localhost:5000/bookings?email=${users?.email}`;
 
   useEffect(() => {
-    fetch(url)
+    fetch(url,
+        {
+            method:'GET',
+            headers:{
+                authorization:`Bearer ${localStorage.getItem('car-access-token')}`
+            }
+        }
+        )
       .then((res) => res.json())
-      .then((data) => setBookings(data));
-  }, [url]);
+      .then((data) => {
+        if(!data.error){
+            setBookings(data)
+        }
+        else{
+            navigate('/login')
+        }
+      });
+  }, [navigate, url]);
 
 
   const handleDelete=(id)=>{

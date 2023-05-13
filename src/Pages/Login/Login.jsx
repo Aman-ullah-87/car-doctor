@@ -16,7 +16,10 @@ const Login = () => {
     console.log(email, password);
     logIn(email, password)
       .then((result) => {
-        console.log(result)
+        const user=result.user
+        const loggedUser={
+          email:user.email
+        }
         Swal.fire({
           position: 'top-end',
           icon: 'success',
@@ -24,8 +27,22 @@ const Login = () => {
           showConfirmButton: false,
           timer: 2000
         })
-        navigate(from, { replace: true });
+
+        fetch('http://localhost:5000/jwt',{
+          method:'POST',
+          headers:{
+            'content-type': 'application/json'
+          },
+          body:JSON.stringify(loggedUser)
+        })
+        .then(res=>res.json())
+        .then(result => {
+         
+          localStorage.setItem('car-access-token',result.token)
+          navigate(from, { replace: true });
         form.reset()
+        })
+        
       })
       .catch((error) => {
         console.log(error);
